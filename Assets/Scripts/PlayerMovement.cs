@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    public float moveSpeed = 5f;
-    public float dashAmount = 50f;
-
+    // PC model, position, and animator
     public Rigidbody2D body;
     private Vector2 movement;
     public Animator animator;
+
+    // speed variables
+    public float moveSpeed = 5f;
+    public float dashSpeed = 50f;
+    public float sprintSpeed = 10f;
+
+    //bools for buttons
     private bool isDashButtonDown;
+    private bool isSprintButtonDown;
 
     // Update is called once per frame
     void Update()
@@ -36,8 +42,23 @@ public class PlayerMovement : MonoBehaviour
         {
             isDashButtonDown = true;
 
+            // if the user is sprinting, only have them dash
+            if (isSprintButtonDown)
+            {
+                isSprintButtonDown = false;
+            }
+
             // update animation
             animator.SetBool("IsDashing", isDashButtonDown);
+        }
+
+        // set shift for sprint
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            isSprintButtonDown = true;
+
+            // update animation
+            animator.SetBool("IsSprinting", isSprintButtonDown);
         }
 
     }
@@ -51,13 +72,29 @@ public class PlayerMovement : MonoBehaviour
         if (isDashButtonDown)
         {
             // update motion
-            body.MovePosition(body.position + movement * moveSpeed * dashAmount * Time.fixedDeltaTime);
+            body.MovePosition(body.position + movement * moveSpeed * dashSpeed * Time.fixedDeltaTime);
             // update animation
             animator.SetBool("IsDashing", isDashButtonDown);
 
             // reset value and animation
             isDashButtonDown =false;
             animator.SetBool("IsDashing", isDashButtonDown);
+        }
+
+        // if the player is holding down the sprint button, they will sprint
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            // update motion and animation
+            body.MovePosition(body.position + movement * moveSpeed * sprintSpeed * Time.fixedDeltaTime);
+            animator.SetBool("IsSprinting", isSprintButtonDown);
+
+        }
+        else
+        {
+            // reset value and animation
+            isSprintButtonDown = false;
+            animator.SetBool("IsSprinting", isSprintButtonDown);
+
         }
     }
 }
