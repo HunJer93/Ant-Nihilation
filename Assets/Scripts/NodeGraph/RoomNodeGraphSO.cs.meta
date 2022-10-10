@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 81ab0ee12f811464aad6f3fec352b65f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - roomNodeTypeList: {instanceID: 0}
+  - roomNodeToDrawLineFrom: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
