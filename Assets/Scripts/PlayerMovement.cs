@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         if (isDashButtonDown)
         {
             // update motion
-            body.MovePosition(body.position + movement * moveSpeed * dashSpeed * Time.fixedDeltaTime);
+            body.MovePosition(body.position + movement * dashSpeed * Time.fixedDeltaTime);
             // update animation
             animator.SetBool("IsDashing", isDashButtonDown);
 
@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             // update motion and animation
-            body.MovePosition(body.position + movement * moveSpeed * sprintSpeed * Time.fixedDeltaTime);
+            body.MovePosition(body.position + movement * sprintSpeed * Time.fixedDeltaTime);
             animator.SetBool("IsSprinting", isSprintButtonDown);
 
         }
